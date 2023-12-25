@@ -3,7 +3,11 @@ package ch14.passen;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import ch14.passen.extension.ContextExecutionCondition;
+
+@ExtendWith(ContextExecutionCondition.class)
 class PassengerTest {
 
   @Test
