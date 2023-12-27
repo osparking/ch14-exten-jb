@@ -25,7 +25,7 @@ public class DataOperationExtension implements BeforeEachCallback,
 
   @Override
   public void beforeAll(ExtensionContext context) throws Exception {
-    connection = ConnectionManager.getConnection();
+    connection = ConnectionManager.openConnection();
     TablesManager.dropTable(connection);
     TablesManager.createTable(connection);
   }
