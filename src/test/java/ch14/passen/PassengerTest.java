@@ -1,6 +1,8 @@
 package ch14.passen;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,5 +35,28 @@ class PassengerTest {
     Passenger passenger = new Passenger(custID, custName);
     passengerDao.insert(passenger);
     assertEquals(custName, passengerDao.getById(custID).getName());
+  }
+  
+  @Test
+  void testPassengerUpdate() {
+    String custID = "123-345-345";
+    String custName = "김만기";
+    String newName = "이봉창";
+    
+    Passenger passenger = new Passenger(custID, custName);
+    passengerDao.insert(passenger);
+    passengerDao.update(custID, newName);
+    assertEquals(newName, passengerDao.getById(custID).getName());
+  }
+  
+  @Test
+  void testPassengerDelete() {
+    String custID = "123-345-345";
+    String custName = "김만기";
+    
+    Passenger passenger = new Passenger(custID, custName);
+    passengerDao.insert(passenger);
+    passengerDao.delete(passenger);
+    assertNull(passengerDao.getById(custID));
   }
 }
