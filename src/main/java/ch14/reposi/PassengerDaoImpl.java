@@ -14,8 +14,14 @@ public class PassengerDaoImpl implements PassengerDao {
   private Connection connection;
 
   @Override
-  public void insert(Passenger passenger) {
+  public void insert(Passenger passenger) throws PassengerExistsException {
     String sql = "INSERT INTO PASSENGERS (ID, NAME) VALUES (?, ?)";
+    Passenger existingPassenger = getById(passenger.getIdentifier());
+
+    if (existingPassenger != null) {
+      throw new PassengerExistsException(existingPassenger,
+          existingPassenger.toString());
+    }
 
     try (PreparedStatement statement = connection.prepareStatement(sql)) {
       statement.setString(1, passenger.getIdentifier());
