@@ -39,27 +39,37 @@ class PassengerTest {
     passengerDao.insert(passenger);
     assertEquals(custName, passengerDao.getById(custID).getName());
   }
-  
+
   @Test
   void testPassengerUpdate() throws PassengerExistsException {
     String custID = "123-345-345";
     String custName = "김만기";
     String newName = "이봉창";
-    
+
     Passenger passenger = new Passenger(custID, custName);
     passengerDao.insert(passenger);
     passengerDao.update(custID, newName);
     assertEquals(newName, passengerDao.getById(custID).getName());
   }
-  
+
   @Test
   void testPassengerDelete() throws PassengerExistsException {
     String custID = "123-345-345";
     String custName = "김만기";
-    
+
     Passenger passenger = new Passenger(custID, custName);
     passengerDao.insert(passenger);
     passengerDao.delete(passenger);
     assertNull(passengerDao.getById(custID));
+  }
+
+  @Test
+  void testExistingPassengerException() throws PassengerExistsException {
+    Passenger passenger = new Passenger("AB-123-13", "홍길동");
+    Passenger passenger2 = new Passenger("AB-123-13", "임꺽정");
+    passengerDao.insert(passenger);
+    passengerDao.insert(passenger2);
+
+    assertEquals("홍길동", passengerDao.getById("AB-123-13"));
   }
 }
