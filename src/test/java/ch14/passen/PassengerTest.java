@@ -6,11 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import ch14.passen.extension.ContextExecutionCondition;
+import ch14.passen.extension.DataAccessObjectParameterResolver;
 import ch14.passen.extension.DataOperationExtension;
 import ch14.reposi.PassengerDao;
 import lombok.AllArgsConstructor;
 
 @ExtendWith({ ContextExecutionCondition.class, DataOperationExtension.class })
+@ExtendWith({ DataAccessObjectParameterResolver.class })
 @AllArgsConstructor
 class PassengerTest {
 
