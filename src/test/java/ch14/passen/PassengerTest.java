@@ -10,11 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import ch14.passen.extension.ContextExecutionCondition;
 import ch14.passen.extension.DataAccessObjectParameterResolver;
 import ch14.passen.extension.DataOperationExtension;
+import ch14.passen.extension.LogPassengerExistsExceptionExtension;
 import ch14.reposi.PassengerDao;
+import ch14.reposi.PassengerExistsException;
 import lombok.AllArgsConstructor;
 
 @ExtendWith({ ContextExecutionCondition.class, DataOperationExtension.class })
 @ExtendWith({ DataAccessObjectParameterResolver.class })
+@ExtendWith({ LogPassengerExistsExceptionExtension.class })
 @AllArgsConstructor
 class PassengerTest {
 
@@ -28,7 +31,7 @@ class PassengerTest {
   }
 
   @Test
-  void testPassengerInsert() {
+  void testPassengerInsert() throws PassengerExistsException {
     String custID = "123-345-345";
     String custName = "김만기";
 
@@ -38,7 +41,7 @@ class PassengerTest {
   }
   
   @Test
-  void testPassengerUpdate() {
+  void testPassengerUpdate() throws PassengerExistsException {
     String custID = "123-345-345";
     String custName = "김만기";
     String newName = "이봉창";
@@ -50,7 +53,7 @@ class PassengerTest {
   }
   
   @Test
-  void testPassengerDelete() {
+  void testPassengerDelete() throws PassengerExistsException {
     String custID = "123-345-345";
     String custName = "김만기";
     
